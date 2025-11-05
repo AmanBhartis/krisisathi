@@ -1,0 +1,22 @@
+{
+"name": "krishi-backend",
+"version": "1.0.0",
+"main": "Server.js",
+"scripts": {
+  "start": "node Server.js"
+},
+"dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cloudinary": "^1.41.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.1",
+    "mongoose": "^8.5.0",
+    "multer": "^1.4.5-lts.1",
+    "streamilfer":"^0.1.1"
+}
+}
+
+
+
+

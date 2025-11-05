@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>KRISHI SATHI</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Krishi Sathi: Empowering Indian farmers with real-time weather updates, crop suggestions, government schemes, and essential agricultural services.">
+    <meta name="keywords" content="Krishi Sathi, agriculture, farming, weather, crop suggestions, government schemes, farmer advisory, India, soil testing, market prices, farmer services">
+    <meta name="author" content="Krishi Sathi Team">
+    <meta property="og:title" content="KRISHI SATHI - Smart Farmer Assistant">
+    <meta property="og:description" content="Your farming guide for better growth. Get weather, crop advice, and connect with local resources.">
+    <meta property="og:image" content="https://cdn.prod.website-files.com/63cf34956bc59159af577c42/67478a38e36a65f4491bbff0_67256a6821cb1e4811186e03_Preparing%2520Wheat%2520for%2520Milling%2520(1).webp">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://krishisathi.com/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="KRISHI SATHI - Smart Farmer Assistant">
+    <meta name="twitter:description" content="Empowering farmers with real-time weather, crop suggestions, and essential services.">
+    <meta name="twitter:image" content="https://cdn.prod.website-files.com/63cf34956bc59159af577c42/67478a38e36a65f4491bbff0_67256a6821cb1e4811186e03_Preparing%2520Wheat%2520for%2520Milling%2520(1).webp">
+    <!-- End SEO Meta Tags -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <link rel="stylesheet" href="templates/css/style.css">
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">KRISHI SATHI</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ms-auto">
+  <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="#">Home</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="WEATHER.HTML">Weather</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="market.html">Market</a>
+  </li>
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Services
+    </a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="advisory.html">Advisory</a></li>
+      <li><a class="dropdown-item" href="#">Sheme</a></li>
+      <li><a class="dropdown-item" href="#">Help</a></li>
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="btn btn-outline-success ms-3" href="login.html">Login</a>
+  </li>
+</ul>
+    </div>
+  </div>
+</nav>
+
+<header class="text-center my-4 impressive-header position-relative d-flex align-items-center">
+    <a href="https://en.wikipedia.org/wiki/Wheat" target="_blank" title="Learn more about Wheat">
+        <img src="https://cdn.prod.website-files.com/63cf34956bc59159af577c42/67478a38e36a65f4491bbff0_67256a6821cb1e4811186e03_Preparing%2520Wheat%2520for%2520Milling%2520(1).webp" alt="Wheat Crop" class="header-crop-img me-4">
+    </a>
+    <div class="flex-grow-1">
+        <h1>
+            <span class="emoji">🌾</span>
+            Smart Farmer Assistant
+            <span class="emoji">🚜</span>
+        </h1>
+        <p>Your farming guide for better growth</p>
+    </div>
+</header>
+
+<div class="container mb-4">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Welcome to Krishi Sathi!</h2>
+            <p>
+                Empowering farmers with real-time weather, crop suggestions, and essential services. 
+                Get the latest updates, expert advice, and connect with local resources to maximize your yield and well-being.
+            </p>
+        </div>
+       
+        </div>
+    </div>
+</div>
+
+<div class="container mb-4">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>🌤 Live Weather</h2>
+            <div id="weather">Detecting your location...</div>
+        </div>
+        <div class="col-md-6">
+            <h2>🌱 Crop Suggestions</h2>
+            <form id="crop-form">
+    <input type="text" class="form-control mb-2" placeholder="Enter soil type or pH" id="crop-input" />
+    <button type="submit" class="btn btn-primary">Get Suggestions</button>
+</form>
+<div id="crop-suggestion-result" class="alert alert-info mt-2" style="display:none;"></div>
+        </div>
+    </div>
+</div>
+
+<div class="container mb-4">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>🍲 Featured Foods & Crops</h2>
+            <ul>
+                <li>Wheat, Rice, Maize</li>
+                <li>Fresh Vegetables: Tomato, Potato, Brinjal</li>
+                <li>Fruits: Mango, Banana, Guava</li>
+                <li>Dairy Products: Milk, Paneer, Ghee</li>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <h2>🏨 Hotel & Farmer Services</h2>
+            <ul>
+                <li>Nearby Farmer-Friendly Hotels & Lodges</li>
+                <li>Farm Equipment Rental Services</li>
+                <li>Soil & Water Testing Labs</li>
+                <li>24x7 Helpline & Advisory Support</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container mb-4">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>🌟 Success Stories</h2>
+            <div class="card mb-2 p-2" style="background:rgba(255,248,220,0.7);border:none;">
+                <strong>Ramesh Kumar (Bihar):</strong> Increased his wheat yield by 30% using Krishi Sathi’s crop suggestions and weather alerts.
+            </div>
+            <div class="card mb-2 p-2" style="background:rgba(255,248,220,0.7);border:none;">
+                <strong>Sunita Devi (UP):</strong> Switched to organic farming and now supplies vegetables to local hotels, thanks to our advisory services.
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h2>📢 Government Schemes</h2>
+            <ul>
+                <li><strong>PM-KISAN:</strong> Direct income support for farmers. <a href="https://pmkisan.gov.in/" target="_blank">Learn more</a></li>
+                <li><strong>Soil Health Card:</strong> Free soil testing and recommendations. <a href="https://soilhealth.dac.gov.in/" target="_blank">Learn more</a></li>
+                <li><strong>Crop Insurance:</strong> Protect your crops from natural calamities. <a href="https://pmfby.gov.in/" target="_blank">Learn more</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container mb-4">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>📰 Latest Agriculture News</h2>
+      <ul>
+        <li><strong>Monsoon Update:</strong> IMD predicts above-normal rainfall for the coming season.</li>
+        <li><strong>New Subsidy:</strong> Government announces 20% subsidy on organic fertilizers.</li>
+        <li><strong>Market Prices:</strong> Wheat and rice prices rise by 5% in major mandis.</li>
+        <li><strong>Training Camp:</strong> Free organic farming workshop in Patna, Aug 10-12.</li>
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <h2>🎓 Farmer Education & Tips</h2>
+      <ul>
+        <li>How to test your soil at home: <a href="https://www.youtube.com/watch?v=soiltest" target="_blank">Watch Video</a></li>
+        <li>Best irrigation practices for water conservation.</li>
+        <li>How to identify and control common crop pests.</li>
+        <li>Benefits of crop rotation for soil health.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="container mb-4">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>🤝 Community & Support</h2>
+      <ul>
+        <li>Join our WhatsApp group for instant updates and peer support: <a href="https://chat.whatsapp.com/example" target="_blank">Join Now</a></li>
+        <li>Monthly farmer meetups in your district.</li>
+        <li>Share your success story and inspire others!</li>
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <h2>🔗 Useful Links</h2>
+      <ul>
+        <li><a href="https://farmer.gov.in/" target="_blank">Farmer Portal (Govt. of India)</a></li>
+        <li><a href="https://agmarknet.gov.in/" target="_blank">Agmarknet Market Prices</a></li>
+        <li><a href="https://www.icar.org.in/" target="_blank">ICAR - Research & Innovations</a></li>
+        <li><a href="https://www.krishivigyan.net/" target="_blank">Krishi Vigyan Kendras</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="container mb-4">
+    <div class="row">
+        <div class="col-md-8">
+            <h2>✉️ Contact & Feedback</h2>
+            <form action="https://formspree.io/f/manbbqay" method="POST">
+    <div class="mb-2">
+        <input type="text" class="form-control" name="name" placeholder="Your Name" required>
+    </div>
+    <div class="mb-2">
+        <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+    </div>
+    <div class="mb-2">
+        <textarea class="form-control" name="message" rows="3" placeholder="Your Message or Feedback" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Send</button>
+</form>
+        </div>
+        <div class="col-md-4 d-flex align-items-center">
+            <div>
+                <h4>📞 Helpline</h4>
+                <p>Call us: <a href="tel:+919876543210">+91 98765 43210</a></p>
+                <p>Email: <a href="mailto:info@krishisathi.com">info@krishisathi.com</a></p>
+                <p>Available: 8am - 8pm, Mon-Sat</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="bg-light text-center py-3 mt-4">
+    <div class="col-md-4">
+        <h4>📍 Our Address</h4>
+        <address>
+            Krishi Sathi Center<br>
+            123 Greenfield Road,<br>
+            Patna, Bihar, 800001<br>
+            Phone: +91 98765 43210<br>
+            Email: info@krishisathi.com
+        </address>
+        <small>© 2025 Krishi Sathi. All rights reserved.</small>
+    </div>
+</footer>
+<script src="js/script.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+  // Initialize EmailJS with your user ID
+  (function() {
+    emailjs.init("StOz82KazVGWVqIsy"); // Replace with your EmailJS user ID
+  })();
+
+  document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    emailjs.sendForm('service_h5suvll', 'template_2c0otbd', this)
+      .then(function() {
+        document.getElementById('form-status').innerHTML = "<span style='color:green;'>Message sent successfully!</span>";
+        document.getElementById('contact-form').reset();
+      }, function(error) {
+        document.getElementById('form-status').innerHTML = "<span style='color:red;'>Failed to send. Please check your EmailJS IDs and try again.</span>";
+      });
+  });
+</script>
+  </body>
+</html>

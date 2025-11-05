@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Register | KRISHI SATHI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="templates/css/style.css">
+  </head>
+  <body class="bg-light">
+    <div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+      <div class="card shadow p-4" style="max-width: 450px; width: 100%;">
+        <h2 class="mb-4 text-center">Register for Krishi Sathi</h2>
+        <form id="register-form">
+          <div class="mb-3">
+            <label for="fullname" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="fullname" placeholder="Enter your full name" required>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email Address</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+          </div>
+          <div id="otp-section" class="mb-3 d-flex">
+            <button type="button" class="btn btn-outline-primary" id="send-otp-btn">Send OTP Link</button>
+            <button type="button" class="btn btn-outline-success ms-2" id="verify-otp-btn" style="display:none;">I've Clicked The Link</button>
+          </div>
+          <!-- Username and password fields, hidden until OTP is verified -->
+          <div id="userpass-section" style="display:none;">
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input type="text" class="form-control" id="username" placeholder="Choose a username" required>
+            </div>
+            <div class="mb-3 position-relative">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" class="form-control" id="password" placeholder="Create a password" required>
+              <button type="button" class="btn btn-sm btn-outline-secondary position-absolute top-50 end-0 translate-middle-y me-2" tabindex="-1" style="z-index:2;" onclick="togglePassword('password', this)">
+                <span class="eye-icon" id="eye-password">&#128065;</span>
+              </button>
+            </div>
+            <div class="mb-3 position-relative">
+              <label for="confirm-password" class="form-label">Confirm Password</label>
+              <input type="password" class="form-control" id="confirm-password" placeholder="Re-enter your password" required>
+              <button type="button" class="btn btn-sm btn-outline-secondary position-absolute top-50 end-0 translate-middle-y me-2" tabindex="-1" style="z-index:2;" onclick="togglePassword('confirm-password', this)">
+                <span class="eye-icon" id="eye-confirm">&#128065;</span>
+              </button>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary w-100" id="register-btn" disabled>Register</button>
+        </form>
+        <div class="mt-3 text-center">
+          <span>Already have an account?</span>
+          <a href="login.html" class="text-success">Login</a>
+        </div>
+        <div id="register-msg" class="mt-3 text-center text-danger"></div>
+      </div>
+    </div>
+  </body>
+</html>

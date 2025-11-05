@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Market Prices & Online Selling | KRISHI SATHI</title>
+    <meta name="description" content="Check latest market prices of crops, sell online, and search crop prices across all states.">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="templates/css/style.css">
+  </head>
+  <body>
+    <!-- Replace your current navbar code with this working Bootstrap navbar -->
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="index.html">KRISHI SATHI</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ms-auto gap-3">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="WEATHER.HTML">Weather</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="market.html">Market</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Services
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" href="#">Advisory</a></li>
+            <li><a class="dropdown-item" href="#">Scheme</a></li>
+            <li><a class="dropdown-item" href="#">Help</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <header class="container mt-4">
+      <h1>🛒 Market Prices & Online Selling</h1>
+      <p>Find latest mandi prices, sell your crops online, and search crop prices across all states.</p>
+    </header>
+
+    <div class="container mb-4">
+      <div class="row">
+        <div class="col-md-8">
+          <h2>🔍 Search Crop Prices by State</h2>
+          <form id="crop-search-form" class="mb-3">
+            <div class="row g-2">
+              <div class="col-md-6">
+                <input type="text" class="form-control" id="crop-name" placeholder="Enter crop name (e.g. Wheat)" required>
+              </div>
+              <div class="col-md-6">
+                <select class="form-select" id="state-name" required>
+                  <option value="">Select State</option>
+                  <option value="Bihar">Bihar</option>
+                  <option value="Uttar Pradesh">Uttar Pradesh</option>
+                  <option value="Punjab">Punjab</option>
+                  <option value="Maharashtra">Maharashtra</option>
+                  <option value="West Bengal">West Bengal</option>
+                  <option value="Madhya Pradesh">Madhya Pradesh</option>
+                  <option value="Rajasthan">Rajasthan</option>
+                  <option value="Gujarat">Gujarat</option>
+                  <option value="Haryana">Haryana</option>
+                  <option value="Others">Others</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-success mt-2">Search Price</button>
+          </form>
+          <div id="price-result" class="mt-3"></div>
+        </div>
+        <div class="col-md-4">
+          <h2>💻 Sell Your Crop Online</h2>
+          <p>Connect with buyers and sell your crops directly from your farm.</p>
+          <a href="https://www.namastekrishi.com/" target="_blank" class="btn btn-warning mb-2">Sell on Namaste Krishi</a>
+          <a href="https://www.eagriculturemarket.com/" target="_blank" class="btn btn-warning mb-2">Sell on eAgriculture Market</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mb-4">
+      <h2>📈 Latest Market Prices (Sample)</h2>
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Crop</th>
+            <th>State</th>
+            <th>Mandi Price (₹/quintal)</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Wheat</td><td>Bihar</td><td>2150</td><td>31-Jul-2025</td></tr>
+          <tr><td>Rice</td><td>Punjab</td><td>3200</td><td>31-Jul-2025</td></tr>
+          <tr><td>Maize</td><td>Uttar Pradesh</td><td>1850</td><td>31-Jul-2025</td></tr>
+          <tr><td>Potato</td><td>West Bengal</td><td>900</td><td>31-Jul-2025</td></tr>
+          <tr><td>Soybean</td><td>Madhya Pradesh</td><td>4200</td><td>31-Jul-2025</td></tr>
+        </tbody>
+      </table>
+      <small>For latest prices, visit <a href="https://agmarknet.gov.in/" target="_blank">Agmarknet</a></small>
+    </div>
+
+    <!-- Crop Suggestion Section (no weather) -->
+    <div class="container mb-4">
+      <h2>🌱 Crop Suggestion Based on Soil</h2>
+      <form id="crop-form" class="mb-3">
+        <input id="crop-input" type="text" class="form-control mb-2" placeholder="Enter soil type or pH value (e.g. clay, sandy, 6.5)" />
+        <button type="submit" class="btn btn-primary">Suggest Crop</button>
+      </form>
+      <div id="crop-suggestion-result" class="alert alert-info" style="display:none"></div>
+      <div id="irrigation-advice" class="alert alert-success" style="display:none"></div>
+    </div>
+
+    <div class="container mb-4">
+      <h2>🧮 Calculate Total Crop Price</h2>
+      <form id="market-calc-form" class="mb-3">
+        <div class="row g-2">
+          <div class="col-md-4">
+            <input type="text" class="form-control" id="calc-crop-name" placeholder="Enter crop name (e.g. Wheat)" required>
+          </div>
+          <div class="col-md-4">
+            <select class="form-select" id="calc-state-name" required>
+              <option value="">Select State</option>
+              <option value="Bihar">Bihar</option>
+              <option value="Uttar Pradesh">Uttar Pradesh</option>
+              <option value="Punjab">Punjab</option>
+              <option value="Maharashtra">Maharashtra</option>
+              <option value="West Bengal">West Bengal</option>
+              <option value="Madhya Pradesh">Madhya Pradesh</option>
+              <option value="Rajasthan">Rajasthan</option>
+              <option value="Gujarat">Gujarat</option>
+              <option value="Haryana">Haryana</option>
+              <option value="Others">Others</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <input type="number" class="form-control" id="calc-quantity" placeholder="Quantity (quintals)" min="1" required>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-success mt-2">Calculate Price</button>
+      </form>
+      <div id="market-calc-result" class="alert alert-warning" style="display:none"></div>
+    </div>
+
+    <!-- Add this section before your closing </body> tag, after all existing content and forms -->
+    <div class="container mb-4">
+      <h2>🧰 Farmer's Market Toolkit</h2>
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <h5>🚚 Find Nearest Mandi</h5>
+          <p>
+            <a href="https://enam.gov.in/web/mandis" target="_blank" class="btn btn-outline-primary btn-sm">eNAM Mandi Locator</a><br>
+            Search for the nearest government-regulated market (mandi) to sell your produce.
+          </p>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>📦 Packaging & Transport Tips</h5>
+          <ul class="small">
+            <li>Use clean, sturdy bags or crates to avoid spoilage.</li>
+            <li>Transport early morning or late evening to avoid heat damage.</li>
+            <li>Label your produce with crop name, variety, and weight for transparency.</li>
+          </ul>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>💡 Market Tips</h5>
+          <ul class="small">
+            <li>Check prices in multiple mandis before selling.</li>
+            <li>Keep all receipts and transaction records.</li>
+            <li>Negotiate with buyers but know the minimum support price (MSP).</li>
+            <li>Join local farmer groups for better bargaining power.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <h5>📱 Useful Apps & Portals</h5>
+          <ul class="small">
+            <li><a href="https://farmer.gov.in/" target="_blank">Farmer Portal (Govt. of India)</a></li>
+            <li><a href="https://mkisan.gov.in/" target="_blank">mKisan SMS Portal</a></li>
+            <li><a href="https://agmarknet.gov.in/" target="_blank">Agmarknet (Mandi Prices)</a></li>
+            <li><a href="https://enam.gov.in/" target="_blank">eNAM (Online Mandi Trading)</a></li>
+          </ul>
+        </div>
+        <div class="col-md-6 mb-3">
+          <h5>📝 Farmer Helpline & Support</h5>
+          <ul class="small">
+            <li>📞 Kisan Call Center: <a href="tel:18001801551">1800-180-1551</a> (Toll Free)</li>
+            <li>📧 Email: <a href="mailto:help@krishisathi.com">help@krishisathi.com</a></li>
+            <li>👨‍🌾 Visit your local Krishi Vigyan Kendra for expert advice.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mb-4">
+  <h2>🌐 Government Crop Selling Portals</h2>
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <a href="https://enam.gov.in/" target="_blank" class="btn btn-outline-success w-100 mb-2">
+        🏛️ eNAM (National Agriculture Market)
+      </a>
+      <p class="small">Sell your crops online across India’s largest government-regulated mandi network. Registration is free for farmers.</p>
+    </div>
+    <div class="col-md-6 mb-3">
+      <a href="https://farmer.gov.in/mou.aspx" target="_blank" class="btn btn-outline-primary w-100 mb-2">
+        📦 Farmer Portal (Govt. of India)
+      </a>
+      <p class="small">Access government schemes, register for direct selling, and get information on crop procurement and MSP.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <a href="https://www.msp.gov.in/" target="_blank" class="btn btn-outline-warning w-100 mb-2">
+        💰 MSP (Minimum Support Price) Portal
+      </a>
+      <p class="small">Check MSP rates and government procurement centers for your crops.</p>
+    </div>
+    <div class="col-md-6 mb-3">
+      <a href="https://agmarknet.gov.in/" target="_blank" class="btn btn-outline-info w-100 mb-2">
+        📊 Agmarknet (Mandi Prices & Trading)
+      </a>
+      <p class="small">Get daily mandi prices and connect with buyers through the government’s Agmarknet portal.</p>
+    </div>
+  </div>
+</div>
+
+    <script>
+      // Simple crop price lookup (sample data)
+      const cropPrices = {
+        "Wheat": {
+          "Bihar": 2150,
+          "Uttar Pradesh": 2100,
+          "Punjab": 2200,
+          "Maharashtra": 2050,
+          "Others": 2000
+        },
+        "Rice": {
+          "Punjab": 3200,
+          "West Bengal": 3100,
+          "Bihar": 3000,
+          "Uttar Pradesh": 3050,
+          "Others": 2900
+        },
+        "Maize": {
+          "Uttar Pradesh": 1850,
+          "Madhya Pradesh": 1800,
+          "Bihar": 1750,
+          "Others": 1700
+        },
+        "Potato": {
+          "West Bengal": 900,
+          "Bihar": 850,
+          "Punjab": 950,
+          "Others": 800
+        },
+        "Soybean": {
+          "Madhya Pradesh": 4200,
+          "Maharashtra": 4150,
+          "Others": 4100
+        }
+      };
+
+      // Crop price search
+      document.getElementById('crop-search-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const crop = document.getElementById('crop-name').value.trim();
+        const state = document.getElementById('state-name').value;
+        const resultDiv = document.getElementById('price-result');
+        if (cropPrices[crop] && cropPrices[crop][state]) {
+          resultDiv.innerHTML = `<strong>${crop}</strong> price in <strong>${state}</strong>: <span style="color:#b8860b;">₹${cropPrices[crop][state]}/quintal</span> (sample data)`;
+        } else {
+          resultDiv.innerHTML = `<span style="color:red;">Price data not available for ${crop} in ${state}. Please check <a href="https://agmarknet.gov.in/" target="_blank">Agmarknet</a> for latest prices.</span>`;
+        }
+      });
+
+      // Crop suggestion and irrigation advice (soil only, no weather)
+      document.getElementById('crop-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const value = document.getElementById('crop-input').value.trim().toLowerCase();
+        const result = document.getElementById('crop-suggestion-result');
+        const irrigation = document.getElementById('irrigation-advice');
+        let suggestion = '';
+        let irrigationMsg = '';
+
+        // pH-based suggestion
+        const ph = parseFloat(value);
+        if (!isNaN(ph)) {
+          if (ph < 5.5) {
+            suggestion = 'Highly acidic soil. Best crops: Tea, Potato, Pineapple';
+            irrigationMsg = 'Acidic soils often have good moisture retention. Irrigate moderately and monitor for waterlogging.';
+          } else if (ph >= 5.5 && ph < 6.5) {
+            suggestion = 'Moderately acidic soil. Best crops: Rice, Maize, Groundnut';
+            irrigationMsg = 'Maintain consistent moisture, especially for rice. Avoid over-irrigation for groundnut.';
+          } else if (ph >= 6.5 && ph < 7.5) {
+            suggestion = 'Neutral soil. Best crops: Wheat, Barley, Pulses, Most vegetables';
+            irrigationMsg = 'Regular irrigation is recommended. Use drip or sprinkler for vegetables and pulses.';
+          } else if (ph >= 7.5 && ph < 8.5) {
+            suggestion = 'Alkaline soil. Best crops: Cotton, Barley, Sugar beet';
+            irrigationMsg = 'Alkaline soils may have poor drainage. Irrigate less frequently but deeply.';
+          } else if (ph >= 8.5) {
+            suggestion = 'Highly alkaline soil. Limited crops: Barley, Sugar beet, Cotton';
+            irrigationMsg = 'Use gypsum if possible to improve soil. Irrigate carefully to avoid salt build-up.';
+          } else {
+            suggestion = 'Please enter a valid pH value.';
+            irrigationMsg = '';
+          }
+        } else {
+          // Soil type suggestion
+          if (value.includes('clay')) {
+            suggestion = 'Best crops: Rice, Wheat, Sugarcane';
+            irrigationMsg = 'Clay soils retain water well. Irrigate less frequently but avoid waterlogging.';
+          } else if (value.includes('sandy')) {
+            suggestion = 'Best crops: Groundnut, Potato, Watermelon';
+            irrigationMsg = 'Sandy soils drain quickly. Irrigate more frequently with smaller amounts.';
+          } else if (value.includes('loam')) {
+            suggestion = 'Best crops: Maize, Cotton, Pulses';
+            irrigationMsg = 'Loam soils are ideal. Regular irrigation is sufficient for most crops.';
+          } else if (value.includes('acidic')) {
+            suggestion = 'Best crops: Tea, Potato, Pineapple';
+            irrigationMsg = 'Acidic soils often have good moisture retention. Irrigate moderately.';
+          } else if (value.includes('alkaline')) {
+            suggestion = 'Best crops: Barley, Cotton, Sugar beet';
+            irrigationMsg = 'Alkaline soils may have poor drainage. Irrigate less frequently but deeply.';
+          } else {
+            suggestion = 'Please enter a valid soil type or pH value (e.g., "clay", "sandy", "loam", "6.5", etc.)';
+            irrigationMsg = '';
+          }
+        }
+
+        result.textContent = suggestion;
+        result.style.display = 'block';
+        if (irrigationMsg) {
+          irrigation.textContent = irrigationMsg;
+          irrigation.style.display = 'block';
+        } else {
+          irrigation.style.display = 'none';
+        }
+      });
+
+      // Calculation for total crop price
+      document.getElementById('market-calc-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const crop = document.getElementById('calc-crop-name').value.trim();
+        const state = document.getElementById('calc-state-name').value;
+        const qty = parseFloat(document.getElementById('calc-quantity').value);
+        const resultDiv = document.getElementById('market-calc-result');
+        if (cropPrices[crop] && cropPrices[crop][state]) {
+          const pricePerQ = cropPrices[crop][state];
+          const total = pricePerQ * qty;
+          resultDiv.innerHTML = `<strong>Total price for ${qty} quintal(s) of ${crop} in ${state}:</strong> <span style="color:#b8860b;">₹${total.toLocaleString()}</span>`;
+          resultDiv.style.display = 'block';
+        } else {
+          resultDiv.innerHTML = `<span style="color:red;">Price data not available for ${crop} in ${state}. Please check <a href="https://agmarknet.gov.in/" target="_blank">Agmarknet</a> for latest prices.</span>`;
+          resultDiv.style.display = 'block';
+        }
+      });
+    </script>
+  </body>
+</html>

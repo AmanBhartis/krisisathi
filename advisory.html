@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmer Advisory - Krishi Sathi</title>
+    <!-- Bootstrap for grid system and basic components -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <style>
+        /* --- User Provided CSS Base Theme --- */
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1932&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+            opacity: 0.1;
+            z-index: -2;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 70% 20%, rgba(218,165,32,0.08) 0%, transparent 60%),
+                        radial-gradient(circle at 20% 80%, rgba(205,133,63,0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: -1;
+            animation: bgmove 12s linear infinite alternate;
+        }
+
+        @keyframes bgmove {
+            0% { background-position: 70% 20%, 20% 80%; }
+            100% { background-position: 60% 30%, 30% 70%; }
+        }
+
+        .navbar {
+            background: rgba(255, 248, 220, 0.95) !important;
+            border-radius: 0 0 18px 18px;
+            box-shadow: 0 4px 24px rgba(205, 133, 63, 0.15);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: #2c5f2d !important;
+            letter-spacing: 1px;
+            font-size: 1.8rem;
+            text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+        }
+
+        .navbar-brand:hover {
+            color: #1a4c1a !important;
+            transform: scale(1.05);
+        }
+
+        .nav-link {
+            color: #2c5f2d !important;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-radius: 8px;
+            margin: 0 4px;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #1a4c1a !important;
+            background: rgba(76, 175, 80, 0.1);
+            transform: translateY(-1px);
+        }
+
+        header.page-header {
+            background: rgba(255, 248, 220, 0.85);
+            border-radius: 18px;
+            margin-bottom: 24px;
+            padding: 32px 24px;
+            box-shadow: 0 8px 32px rgba(205, 133, 63, 0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(218, 165, 32, 0.2);
+        }
+
+        h1, h2, h3 {
+            color: #2c5f2d;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.6);
+        }
+        
+        h1 { font-size: 2.5rem; }
+
+        .custom-container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            padding: 28px;
+            margin-bottom: 32px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .custom-container:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            height: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #4CAF50, #66BB6A);
+            color: white;
+            border-radius: 12px 12px 0 0 !important;
+            border: none;
+            font-weight: 600;
+        }
+        
+        .table {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+        }
+
+        footer {
+            background: linear-gradient(135deg, rgba(255, 248, 220, 0.95), rgba(218, 165, 32, 0.1)) !important;
+            color: #2c5f2d;
+            border-top: 3px solid #4CAF50;
+            border-radius: 18px 18px 0 0;
+            box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            margin-top: 48px;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Custom Styles to Complement Theme --- */
+        .weather-card-custom {
+            background: linear-gradient(135deg, #5c86e9, #4468c1);
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+        
+        .weather-icon {
+            font-size: 4rem;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .forecast-card {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        .forecast-card:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">🌾 Krishi Sathi</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#">Advisory</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Schemes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Market Prices</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container py-4">
+        
+        <!-- Header -->
+        <header class="page-header text-center fade-in">
+            <h1>Farmer Advisory Dashboard</h1>
+            <p class="lead text-secondary">Your daily guide for farming success .</p>
+            <p class="text-muted" id="last-updated"></p>
+        </header>
+
+        <!-- Weather Section -->
+        <section id="weather-advisory" class="mb-5 fade-in" style="animation-delay: 0.2s;">
+          <div class="custom-container weather-card-custom p-4">
+            <h2 class="text-white text-center mb-4">Real-Time Weather Advisory</h2>
+            <form id="location-form" class="row g-2 mb-4 justify-content-center">
+              <div class="col-md-5">
+                <input type="text" class="form-control" id="location-input" placeholder="Enter city or village name (e.g. Patna)" required>
+              </div>
+              <div class="col-md-auto">
+                <button type="submit" class="btn btn-light fw-bold"><i class="fa-solid fa-location-dot me-2"></i>Get Weather</button>
+              </div>
+            </form>
+            <div id="weather-container" class="row align-items-center">
+              <div id="weather-loading" class="text-center w-100">
+                <div class="spinner-border text-light" role="status"><span class="visually-hidden">Loading...</span></div>
+              </div>
+            </div>
+            <div id="forecast-container" class="row mt-4 g-2"></div>
+          </div>
+        </section>
+
+        <!-- Crop Advisory Section -->
+        <section id="crop-advisory" class="mb-5 fade-in" style="animation-delay: 0.4s;">
+             <div class="custom-container">
+                <h2 class="text-center mb-4">Crop-Specific Advisory (Rabi Season)</h2>
+                <div class="row g-4">
+                    <!-- Paddy Card -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card">
+                            <div class="card-header"><i class="fa-solid fa-seedling me-2"></i>Paddy (Rice)</div>
+                            <div class="card-body">
+                                <p>Focus on late-season crop management. Ensure proper drainage to avoid waterlogging as the monsoon recedes. Monitor for pests like stem borer.</p>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"><strong>Irrigation:</strong> Reduce frequency, avoid standing water.</li>
+                                    <li class="list-group-item"><strong>Pest Alert:</strong> High alert for Brown Plant Hopper (BPH).</li>
+                                    <li class="list-group-item"><strong>Harvesting:</strong> Prepare equipment for the coming weeks.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Wheat Card -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card">
+                            <div class="card-header" style="background: linear-gradient(135deg, #FFB74D, #FF9800);"><i class="fa-solid fa-wheat-awn me-2"></i>Wheat</div>
+                            <div class="card-body">
+                                <p>Begin land preparation for the upcoming Rabi sowing season. Conduct a soil test to determine fertilizer requirements and procure high-quality seeds.</p>
+                                <ul class="list-group list-group-flush">
+                                     <li class="list-group-item"><strong>Land Prep:</strong> Start ploughing, add farmyard manure.</li>
+                                     <li class="list-group-item"><strong>Seed Choice:</strong> Use certified varieties like HD-2967.</li>
+                                     <li class="list-group-item"><strong>Sowing Time:</strong> Ideal window is late Oct to mid-Nov.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Maize Card -->
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card">
+                            <div class="card-header" style="background: linear-gradient(135deg, #42A5F5, #2196F3);"><i class="fa-solid fa-braille me-2"></i>Maize (Corn)</div>
+                            <div class="card-body">
+                               <p>Crop is in the grain-filling stage. Ensure adequate moisture. Watch for Fall Armyworm and take immediate control measures if spotted.</p>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item"><strong>Nutrition:</strong> A final, light dose of nitrogen may be useful.</li>
+                                    <li class="list-group-item"><strong>Pest Control:</strong> Scout regularly for Fall Armyworm.</li>
+                                    <li class="list-group-item"><strong>Harvest:</strong> Look for browning of cob husks in late Oct.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
+        </section>
+
+        <!-- Market Prices -->
+        <section id="market-prices" class="fade-in" style="animation-delay: 0.6s;">
+            <div class="custom-container">
+                <h2 class="text-center mb-4">Today's Market Prices (Arrah Mandi)</h2>
+                 <p class="text-center text-muted small mb-3">Prices are indicative and subject to change.</p>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle text-center">
+                        <thead class="table-dark" style="background: linear-gradient(135deg, #2c5f2d, #4CAF50);">
+                            <tr>
+                                <th>Commodity</th>
+                                <th>Variety</th>
+                                <th>Price (per Quintal)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Paddy (Dhan)</td><td>Common</td><td class="fw-bold text-success">₹1950 - ₹2050</td></tr>
+                            <tr><td>Wheat</td><td>FAQ</td><td class="fw-bold text-success">₹2100 - ₹2200</td></tr>
+                            <tr><td>Maize</td><td>FAQ</td><td class="fw-bold text-success">₹1800 - ₹1900</td></tr>
+                            <tr><td>Potato</td><td>Local</td><td class="fw-bold text-success">₹1500 - ₹1700</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center py-4">
+        <p class="mb-1">&copy; 2025 Krishi Sathi. All Rights Reserved.</p>
+        <p class="small">Empowering the farmers of India.</p>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          // --- Time and Date Update ---
+          const updateTime = () => {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', timeZoneName: 'short' };
+            document.getElementById('last-updated').textContent = `Last Updated: ${now.toLocaleDateString('en-IN', options)}`;
+          };
+          updateTime();
+
+          // --- Weather API Call ---
+          async function fetchWeatherByLocation(location) {
+            const weatherContainer = document.getElementById('weather-container');
+            const forecastContainer = document.getElementById('forecast-container');
+            weatherContainer.innerHTML = `<div id="weather-loading" class="text-center w-100"><div class="spinner-border text-light" role="status"><span class="visually-hidden">Loading...</span></div></div>`;
+            forecastContainer.innerHTML = "";
+
+            // Geocoding API (Open-Meteo, no key required)
+            const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(location)}&count=1&language=en&format=json`;
+            try {
+              const geoRes = await fetch(geoUrl);
+              const geoData = await geoRes.json();
+              if (!geoData.results || geoData.results.length === 0) {
+                weatherContainer.innerHTML = `<div class="alert alert-warning w-100 text-center">Location not found. Please enter a valid city or village name.</div>`;
+                return;
+              }
+              const place = geoData.results[0];
+              const lat = place.latitude;
+              const lon = place.longitude;
+              const placeName = `${place.name}${place.admin1 ? ', ' + place.admin1 : ''}${place.country ? ', ' + place.country : ''}`;
+
+              // Weather API
+              const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Asia/Kolkata`;
+              const response = await fetch(apiUrl);
+              if (!response.ok) throw new Error('Network response was not ok');
+              const data = await response.json();
+
+              const getWeatherInfo = (code) => {
+                const codes = {
+                  0: { desc: "Clear sky", icon: "fa-solid fa-sun" },
+                  1: { desc: "Mainly clear", icon: "fa-solid fa-cloud-sun" },
+                  2: { desc: "Partly cloudy", icon: "fa-solid fa-cloud" },
+                  3: { desc: "Overcast", icon: "fa-solid fa-cloud" },
+                  45: { desc: "Fog", icon: "fa-solid fa-smog" }, 48: { desc: "Rime fog", icon: "fa-solid fa-smog" },
+                  51: { desc: "Light drizzle", icon: "fa-solid fa-cloud-rain" }, 53: { desc: "Drizzle", icon: "fa-solid fa-cloud-rain" }, 55: { desc: "Dense drizzle", icon: "fa-solid fa-cloud-showers-heavy" },
+                  61: { desc: "Slight rain", icon: "fa-solid fa-cloud-rain" }, 63: { desc: "Rain", icon: "fa-solid fa-cloud-showers-heavy" }, 65: { desc: "Heavy rain", icon: "fa-solid fa-cloud-showers-heavy" },
+                  80: { desc: "Slight showers", icon: "fa-solid fa-cloud-sun-rain" }, 81: { desc: "Showers", icon: "fa-solid fa-cloud-sun-rain" }, 82: { desc: "Violent showers", icon: "fa-solid fa-cloud-showers-heavy" },
+                  95: { desc: "Thunderstorm", icon: "fa-solid fa-cloud-bolt" }
+                };
+                return codes[code] || { desc: "Unknown", icon: "fa-solid fa-question" };
+              };
+
+              // Update Current Weather
+              const current = data.current;
+              const weatherInfo = getWeatherInfo(current.weather_code);
+              weatherContainer.innerHTML = `
+                <div class="col-md-5 text-center text-md-start mb-3 mb-md-0">
+                  <div class="d-flex align-items-center justify-content-center justify-content-md-start">
+                    <i class="${weatherInfo.icon} weather-icon me-3"></i>
+                    <div>
+                      <h3 class="display-4 fw-bold mb-0">${current.temperature_2m}°C</h3>
+                      <p class="lead mb-0">${weatherInfo.desc}</p>
+                      <p class="small">${placeName}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-7 text-center text-md-end">
+                  <p class="mb-1"><strong>Humidity:</strong> ${current.relative_humidity_2m}%</p>
+                  <p class="mb-2"><strong>Wind:</strong> ${current.wind_speed_10m} km/h</p>
+                  <div class="alert alert-info mt-2 d-inline-block p-2">Weather updated for your location.</div>
+                </div>
+              `;
+
+              // Update 5-Day Forecast
+              forecastContainer.innerHTML = '';
+              for (let i = 0; i < 5; i++) {
+                const day = new Date(data.daily.time[i]);
+                const dayName = i === 0 ? 'Today' : day.toLocaleDateString('en-IN', { weekday: 'short' });
+                const dayWeatherInfo = getWeatherInfo(data.daily.weather_code[i]);
+                forecastContainer.innerHTML += `
+                  <div class="col">
+                    <div class="text-center text-white p-2 forecast-card">
+                      <p class="fw-bold mb-1">${dayName}</p>
+                      <i class="${dayWeatherInfo.icon} fs-4 my-1"></i>
+                      <p class="small mb-0">${Math.round(data.daily.temperature_2m_max[i])}°/${Math.round(data.daily.temperature_2m_min[i])}°</p>
+                    </div>
+                  </div>
+                `;
+              }
+            } catch (error) {
+              weatherContainer.innerHTML = `<div class="alert alert-danger w-100 text-center">Could not load weather data. Please try again later.</div>`;
+            }
+          }
+
+          // Use browser geolocation for live weather
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+              async (position) => {
+                const lat = position.coords.latitude;
+                const lon = position.coords.longitude;
+                // Reverse geocode to get location name
+                const geoUrl = `https://geocoding-api.open-meteo.com/v1/reverse?latitude=${lat}&longitude=${lon}&language=en&format=json`;
+                try {
+                  const geoRes = await fetch(geoUrl);
+                  const geoData = await geoRes.json();
+                  let locationName = "Your Location";
+                  if (geoData.results && geoData.results.length > 0) {
+                    const place = geoData.results[0];
+                    locationName = `${place.name}${place.admin1 ? ', ' + place.admin1 : ''}${place.country ? ', ' + place.country : ''}`;
+                  }
+                  fetchWeatherByLocation(locationName);
+                } catch {
+                  fetchWeatherByLocation(`${lat},${lon}`);
+                }
+              },
+              () => {
+                // If permission denied, fallback to manual entry
+                document.getElementById('weather-container').innerHTML = `<div class="alert alert-warning w-100 text-center">Location access denied. Please enter your city or village name above.</div>`;
+              }
+            );
+          } else {
+            document.getElementById('weather-container').innerHTML = `<div class="alert alert-warning w-100 text-center">Geolocation not supported. Please enter your city or village name above.</div>`;
+          }
+
+          // Location form handler
+          document.getElementById('location-form').onsubmit = function(e) {
+            e.preventDefault();
+            const location = document.getElementById('location-input').value.trim();
+            if (location) fetchWeatherByLocation(location);
+          };
+        });
+    </script>
+
+</body>
+</html>
+

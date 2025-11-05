@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Weather Forecast - Krishi Sathi</title>
+    <!-- Bootstrap for grid system and basic components -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <style>
+        /* --- User Provided CSS Base Theme --- */
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1932&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
+            opacity: 0.1;
+            z-index: -2;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 70% 20%, rgba(218,165,32,0.08) 0%, transparent 60%),
+                        radial-gradient(circle at 20% 80%, rgba(205,133,63,0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: -1;
+            animation: bgmove 12s linear infinite alternate;
+        }
+
+        @keyframes bgmove {
+            0% { background-position: 70% 20%, 20% 80%; }
+            100% { background-position: 60% 30%, 30% 70%; }
+        }
+
+        .navbar {
+            background: rgba(255, 248, 220, 0.95) !important;
+            border-radius: 0 0 18px 18px;
+            box-shadow: 0 4px 24px rgba(205, 133, 63, 0.15);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: #2c5f2d !important;
+            letter-spacing: 1px;
+            font-size: 1.8rem;
+            text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+        }
+
+        .nav-link {
+            color: #2c5f2d !important;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-radius: 8px;
+            margin: 0 4px;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: #1a4c1a !important;
+            background: rgba(76, 175, 80, 0.1);
+            transform: translateY(-1px);
+        }
+
+        header.page-header {
+            background: rgba(255, 248, 220, 0.85);
+            border-radius: 18px;
+            margin-bottom: 24px;
+            padding: 32px 24px;
+            box-shadow: 0 8px 32px rgba(205, 133, 63, 0.15);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(218, 165, 32, 0.2);
+        }
+
+        h1, h2, h3 {
+            color: #2c5f2d;
+            font-weight: 700;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.6);
+        }
+        
+        h1 { font-size: 2.5rem; }
+
+        .custom-container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            padding: 28px;
+            margin-bottom: 32px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .table {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+        }
+
+        footer {
+            background: linear-gradient(135deg, rgba(255, 248, 220, 0.95), rgba(218, 165, 32, 0.1)) !important;
+            color: #2c5f2d; border-top: 3px solid #4CAF50;
+            border-radius: 18px 18px 0 0;
+            box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px); margin-top: 48px;
+            padding: 24px; text-align: center;
+        }
+
+        .fade-in { animation: fadeIn 0.8s ease-in-out; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Custom Styles for this Page --- */
+        .weather-icon-large { font-size: 5rem; text-shadow: 2px 2px 8px rgba(0,0,0,0.2); }
+        .table-hover tbody tr:hover { background-color: rgba(76, 175, 80, 0.05); }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">🌾 Krishi Sathi</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="advisory.html">Advisory</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#">Weather</a></li>
+                    <li class="nav-item"><a class="nav-link" href="schemes.html">Schemes</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container py-4">
+        
+        <header class="page-header text-center fade-in">
+            <h1>10-Day Weather Forecast</h1>
+            <p class="lead text-secondary" id="location-name">Detecting your location...</p>
+        </header>
+
+        <!-- Current Weather & Forecast Table -->
+        <section id="forecast-section" class="custom-container fade-in" style="animation-delay: 0.2s;">
+            <div id="current-weather-container" class="text-center mb-5">
+                <!-- Current weather loads here -->
+                <div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div>
+            </div>
+
+            <h2 class="text-center mb-4">10-Day Forecast</h2>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle text-center">
+                    <thead class="table-dark" style="background: linear-gradient(135deg, #2c5f2d, #4CAF50);">
+                        <tr>
+                            <th>Date</th>
+                            <th>Forecast</th>
+                            <th>Temp (Hi/Lo)</th>
+                            <th>Chance of Rain</th>
+                            <th class="d-none d-md-table-cell">Summary</th>
+                        </tr>
+                    </thead>
+                    <tbody id="forecast-table-body">
+                        <!-- Forecast data loads here, or an error message -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center py-4">
+        <p class="mb-1">&copy; 2025 Krishi Sathi. All Rights Reserved.</p>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const getWeatherInfo = (code, largeIcon = false) => {
+                const codes = {
+                    0: { desc: "Clear", icon: "fa-sun" }, 1: { desc: "Mainly Clear", icon: "fa-cloud-sun" },
+                    2: { desc: "Partly Cloudy", icon: "fa-cloud" }, 3: { desc: "Overcast", icon: "fa-cloud" },
+                    45: { desc: "Fog", icon: "fa-smog" }, 48: { desc: "Rime Fog", icon: "fa-smog" },
+                    51: { desc: "Light Drizzle", icon: "fa-cloud-rain" }, 53: { desc: "Drizzle", icon: "fa-cloud-rain" }, 55: { desc: "Dense Drizzle", icon: "fa-cloud-showers-heavy" },
+                    61: { desc: "Light Rain", icon: "fa-cloud-rain" }, 63: { desc: "Rain", icon: "fa-cloud-showers-heavy" }, 65: { desc: "Heavy Rain", icon: "fa-cloud-showers-heavy" },
+                    80: { desc: "Light Showers", icon: "fa-cloud-sun-rain" }, 81: { desc: "Showers", icon: "fa-cloud-sun-rain" }, 82: { desc: "Heavy Showers", icon: "fa-cloud-showers-heavy" },
+                    95: { desc: "Thunderstorm", icon: "fa-cloud-bolt" }
+                };
+                const info = codes[code] || { desc: "Unknown", icon: "fa-question" };
+                const iconClass = largeIcon ? 'weather-icon-large' : 'fs-4';
+                return { ...info, iconHTML: `<i class="fa-solid ${info.icon} ${iconClass}"></i>` };
+            };
+            
+            const handleLocationError = () => {
+                const errorMsg = "Could not access your location. Please enable location services in your browser settings and refresh the page.";
+                document.getElementById('location-name').textContent = "Location access denied.";
+                document.getElementById('current-weather-container').innerHTML = `<div class="alert alert-danger">${errorMsg}</div>`;
+                document.getElementById('forecast-table-body').innerHTML = `<tr><td colspan="5" class="text-center text-danger p-4">${errorMsg}</td></tr>`;
+            };
+
+            const getCityName = async (lat, lon) => {
+                try {
+                    const response = await fetch(`https://geocode.maps.co/reverse?lat=${lat}&lon=${lon}`);
+                    const data = await response.json();
+                    const city = data.address?.city || data.address?.town || data.address?.village || 'your location';
+                    const state = data.address?.state || '';
+                    return `${city}, ${state}`;
+                } catch (error) {
+                    console.error('Reverse geocoding failed:', error);
+                    return 'your current location';
+                }
+            };
+
+            const fetchWeatherForLocation = async (lat, lon) => {
+                const locationName = await getCityName(lat, lon);
+                document.getElementById('location-name').textContent = `Detailed forecast for ${locationName}`;
+
+                const apiUrl = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&forecast_days=10&timezone=auto`;
+
+                const currentWeatherContainer = document.getElementById('current-weather-container');
+                const forecastTableBody = document.getElementById('forecast-table-body');
+
+                try {
+                    const response = await fetch(apiUrl);
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    const data = await response.json();
+
+                    // 1. Populate Current Weather
+                    const current = data.current;
+                    const currentWeatherInfo = getWeatherInfo(current.weather_code, true);
+                    currentWeatherContainer.innerHTML = `
+                        <p class="lead mb-1">Current Weather</p>
+                        ${currentWeatherInfo.iconHTML}
+                        <h3 class="display-3 fw-bold">${current.temperature_2m}°C</h3>
+                        <p class="fs-4">${currentWeatherInfo.desc}</p>
+                    `;
+
+                    // 2. Populate 10-Day Forecast Table
+                    forecastTableBody.innerHTML = ''; // Clear placeholder
+                    const daily = data.daily;
+                    for (let i = 0; i < 10; i++) {
+                        const date = new Date(daily.time[i]);
+                        const dayName = i === 0 ? 'Today' : date.toLocaleDateString('en-IN', { weekday: 'short' });
+                        const fullDate = date.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+                        const dayWeatherInfo = getWeatherInfo(daily.weather_code[i]);
+
+                        const row = `
+                            <tr>
+                                <td class="fw-bold">${dayName}<br class="d-none d-sm-block"/><span class="small text-muted">${fullDate}</span></td>
+                                <td>${dayWeatherInfo.iconHTML}<p class="d-md-none small mb-0">${dayWeatherInfo.desc}</p></td>
+                                <td>${Math.round(daily.temperature_2m_max[i])}° / ${Math.round(daily.temperature_2m_min[i])}°C</td>
+                                <td class="text-primary fw-bold">${daily.precipitation_probability_max[i]}%</td>
+                                <td class="d-none d-md-table-cell">${dayWeatherInfo.desc}</td>
+                            </tr>
+                        `;
+                        forecastTableBody.innerHTML += row;
+                    }
+                } catch (error) {
+                    console.error("Weather fetch error:", error);
+                    handleLocationError(); // Use the same error handler for API failures
+                }
+            };
+
+            const initializeWeatherApp = () => {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        (position) => {
+                            const { latitude, longitude } = position.coords;
+                            fetchWeatherForLocation(latitude, longitude);
+                        },
+                        handleLocationError
+                    );
+                } else {
+                    handleLocationError();
+                }
+            };
+
+            initializeWeatherApp();
+        });
+    </script>
+
+</body>
+</html>
+

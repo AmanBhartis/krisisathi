@@ -1,0 +1,208 @@
+/* Reset & basic */
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0; padding: 0;
+  background-color: #f7f9f9;
+  color: #2c3e50;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+a {
+  color: #27ae60;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #27ae60;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 30px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.navbar-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.navbar-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+.navbar-links li a {
+  color: white;
+  font-weight: 600;
+}
+
+/* Cards */
+.card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px 25px;
+  margin: 15px auto;
+  max-width: 1000px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+/* Header */
+.header {
+  text-align: center;
+  padding: 25px 10px 10px 10px;
+  background-color: #dff0d8;
+  margin-bottom: 10px;
+}
+
+/* Forms */
+label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: 600;
+}
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+input[type="number"],
+select,
+textarea {
+  width: 100%;
+  padding: 8px 10px;
+  margin-top: 3px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+textarea {
+  resize: vertical;
+}
+
+/* Buttons */
+button, .btn-primary {
+  background-color: #27ae60;
+  border: none;
+  color: white;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+button:hover, .btn-primary:hover {
+  background-color: #1e8449;
+}
+.btn-block {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+}
+.btn-submit {
+  margin-top: 20px;
+}
+
+/* Layout */
+main, .profile-container {
+  padding: 20px;
+  flex: 1;
+  max-width: 900px;
+  margin: 0 auto 40px;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+thead {
+  background-color: #27ae60;
+  color: white;
+}
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Calendar */
+#calendar-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+#calendar-header button {
+  padding: 5px 12px;
+  font-weight: bold;
+}
+#calendar-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 15px;
+}
+#calendar-table th, #calendar-table td {
+  width: 14.28%;
+  height: 60px;
+  text-align: center;
+  vertical-align: middle;
+  border: 1px solid #ccc;
+}
+#calendar-table td.today {
+  background-color: #27ae60;
+  color: white;
+  font-weight: bold;
+}
+#calendar-table td.task-day {
+  background-color: #a3d9a5;
+  cursor: pointer;
+}
+
+/* Login & Center container */
+.center-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bg-light {
+  background-color: #e6f0e6;
+}
+.card.shadow {
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  padding: 30px;
+  border-radius: 10px;
+  width: 350px;
+}
+
+/* Task List */
+#task-list {
+  list-style: none;
+  padding-left: 0;
+}
+#task-list li {
+  background: #dff0d8;
+  margin-bottom: 6px;
+  padding: 8px 12px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+#task-list li button {
+  background: #e74c3c;
+  border: none;
+  color: white;
+  border-radius: 3px;
+  cursor: pointer;
+  padding: 3px 6px;
+}
